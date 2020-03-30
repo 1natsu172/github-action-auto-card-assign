@@ -1,0 +1,16 @@
+name: "Auto card assign"
+on:
+  project_card:
+    types: ["created", "moved"]
+
+jobs:
+  card_assign:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        id: card_assign_action
+        with:
+          milliseconds: 1000
+          github_token: "${{ secrets.GITHUB_TOKEN }}"
+          config: '{"projectName1":"columnName1":[''tom'',''john'']}'

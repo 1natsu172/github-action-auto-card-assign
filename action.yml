@@ -1,0 +1,17 @@
+name: "Auto card assign"
+description: "Assign appropriate assignees by column to card moved on github projects"
+author: "1natsu172"
+inputs:
+  github_token:
+    description: "Secret GitHub API token to use for API requests."
+    default: ${{ github.token }}
+    required: true
+  config:
+    description: "This Action's config."
+    required: true
+branding:
+  icon: "user-check"
+  color: "gray-dark"
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

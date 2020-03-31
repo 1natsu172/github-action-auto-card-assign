@@ -13,4 +13,4 @@ jobs:
         with:
           milliseconds: 1000
           github_token: "${{ secrets.GITHUB_TOKEN }}"
-          config: '{"projectName1":"columnName1":[''tom'',''john'']}'
+          config: "card-assign.yml"

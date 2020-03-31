@@ -8,6 +8,7 @@ inputs:
     required: true
   config:
     description: "This Action's config."
+    default: "card-assign.yml"
     required: true
 branding:
   icon: "user-check"

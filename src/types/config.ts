@@ -1,4 +1,4 @@
-export type ConfigNode = string
+export type ConfigPath = string
 
 export interface Config {
   [projectName: string]: {

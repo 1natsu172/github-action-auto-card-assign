@@ -26,8 +26,9 @@
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.0",
-    "@actions/github": "2.1.1",
-    "lodash-es": "4.17.15"
+    "@actions/github": "^2.1.1",
+    "lodash-es": "^4.17.15",
+    "@technote-space/github-action-config-helper": "^1.0.2"
   },
   "devDependencies": {
     "@types/jest": "^24.0.23",

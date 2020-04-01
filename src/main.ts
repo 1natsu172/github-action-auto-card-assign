@@ -1,15 +1,15 @@
 import * as core from '@actions/core'
 import {wait} from './wait'
 import {getConfig} from './libs/getConfig'
+import {getProjectName} from './libs/getProjectName'
 
 async function run(): Promise<void> {
   try {
-    const config = core.getInput('config')
+    const configParam = core.getInput('config')
     const ms: string = core.getInput('milliseconds')
-    core.debug(config)
-    // eslint-disable-next-line no-console
-    const a = await getConfig()
-    console.log(a)
+    core.debug(configParam)
+    // const  = await getConfig()
+    getProjectName()
     core.debug(`Waiting ${ms} milliseconds ...`)
 
     core.debug(new Date().toTimeString())

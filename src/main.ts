@@ -8,7 +8,8 @@ async function run(): Promise<void> {
     const ms: string = core.getInput('milliseconds')
     core.debug(config)
     // eslint-disable-next-line no-console
-    console.log(await getConfig())
+    const a = await getConfig()
+    console.log(a)
     core.debug(`Waiting ${ms} milliseconds ...`)
 
     core.debug(new Date().toTimeString())

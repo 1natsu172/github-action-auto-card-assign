@@ -1,6 +1,8 @@
-Project name1:
-  Column name1:
-    - 'Status: test1'
-  Column name2:
-    - 'Status: test2-1'
-    - 'Status: test2-2'
+test-project:
+  To Do:
+    - "assignee_test_todo1"
+  In progress:
+    - "assignee_inP1"
+  Done:
+    - "assignee_done1"
+    - "assignee_done2"

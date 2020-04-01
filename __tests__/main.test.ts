@@ -17,7 +17,7 @@ test('wait 500 ms', async () => {
 })
 
 // shows how the runner will run a javascript action with env / stdout protocol
-test('test runs', () => {
+test.skip('test runs', () => {
   process.env['INPUT_MILLISECONDS'] = '500'
   const ip = path.join(__dirname, '..', 'lib', 'main.js')
   const options: cp.ExecSyncOptions = {

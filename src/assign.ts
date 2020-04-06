@@ -11,6 +11,7 @@ import {
   removeAssigneesFromAssignable,
   addAssigneesToAssignable
 } from './usecases'
+import {prettyStringify} from './utils'
 
 export async function assign(): Promise<void> {
   const cardNodeId = getProjectCardNodeId()
@@ -27,29 +28,21 @@ export async function assign(): Promise<void> {
     columnName
   })
 
-  core.info(`assignableInfo: ${assignableInfo}`)
+  core.info(`assignableInfo: ${prettyStringify(assignableInfo)}`)
 
   /**
    * Remove all existing assignees on the card.
    */
-  core.group(
-    'removeAssigneesFromAssignable',
-    async () =>
-      await removeAssigneesFromAssignable({
-        assignableInfo,
-        assignableId: assignableNodeId
-      })
-  )
+  await removeAssigneesFromAssignable({
+    assignableInfo,
+    assignableId: assignableNodeId
+  })
 
   /**
    * Add expected assignees to the card.
    */
-  core.group(
-    'addAssigneesToAssignable',
-    async () =>
-      await addAssigneesToAssignable({
-        expectedAssigneesLogin,
-        assignableId: assignableNodeId
-      })
-  )
+  await addAssigneesToAssignable({
+    expectedAssigneesLogin,
+    assignableId: assignableNodeId
+  })
 }

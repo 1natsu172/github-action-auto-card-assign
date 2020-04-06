@@ -1,18 +1,18 @@
 import * as core from '@actions/core'
 import {context} from '@actions/github'
 import {wait} from './wait'
-// import {getConfig} from './libs'
 import {assign} from './assign'
 import {
   isSupportActionEvent,
   isAssignableCard,
-  createSkipActionMessage
+  createSkipActionMessage,
+  prettyStringify
 } from './utils'
 import {thrownHandler} from './libs'
 
 async function run(): Promise<void> {
   core.startGroup('::debug::context')
-  core.debug(JSON.stringify(context, null, 2))
+  core.debug(prettyStringify(context))
   core.endGroup()
 
   try {

@@ -5,6 +5,7 @@ import {wait} from './wait'
 // import {getConfig} from './libs'
 import {assign} from './assign'
 import {isSupportActionEvent} from './utils'
+import {thrownHandler} from './libs'
 
 async function run(): Promise<void> {
   try {
@@ -25,8 +26,7 @@ async function run(): Promise<void> {
 
     core.setOutput('time', new Date().toTimeString())
   } catch (error) {
-    core.setFailed(error.toString())
-    core.error(JSON.stringify(error, null, 2))
+    thrownHandler(error)
   }
 }
 

@@ -1,8 +1,8 @@
 import {getConfig, getGitHubToken} from './getConfig'
 import {getOctokit} from './getOctokit'
-
 import {userInfo} from '../queries/userInfo.graphql'
 import {UserInfo} from '../types'
+import {checkConfiguredColumn} from '../utils'
 
 export async function getAssigneesLoginFromConfig(params: {
   projectName: string
@@ -11,14 +11,10 @@ export async function getAssigneesLoginFromConfig(params: {
   const {projectName, columnName} = params
   const config = await getConfig()
 
-  if (!(projectName in config)) {
-    throw Error(
-      `The project name "${projectName}" is not defined in the config.`
-    )
-  }
-
-  if (!(columnName in config[projectName])) {
-    throw Error(`Column name "${columnName}" not defined in config.`)
+  try {
+    await checkConfiguredColumn({projectName, columnName})
+  } catch (error) {
+    throw Error(error)
   }
 
   return config[projectName][columnName] || []

@@ -6,7 +6,7 @@
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
-    "type-check":"tsc --noEmit",
+    "type-check": "tsc --noEmit",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
     "lint": "eslint src/**/*.ts",
@@ -28,11 +28,12 @@
   "dependencies": {
     "@actions/core": "^1.2.0",
     "@actions/github": "^2.1.1",
-    "lodash.isobject": "^3.0.2",
     "@technote-space/github-action-config-helper": "^1.0.2",
-    "@technote-space/github-action-helper": "^2.0.3"
+    "@technote-space/github-action-helper": "^2.0.3",
+    "lodash.isobject": "^3.0.2"
   },
   "devDependencies": {
+    "@octokit/webhooks": "^7.1.2",
     "@types/jest": "^24.0.23",
     "@types/lodash.isobject": "^3.0.6",
     "@types/node": "^12.7.12",
@@ -47,6 +48,6 @@
     "prettier": "^2.0.2",
     "ts-jest": "^24.2.0",
     "typescript": "^3.8.3",
-    "@octokit/webhooks": "^7.1.2"
+    "type-fest": "^0.13.1"
   }
 }

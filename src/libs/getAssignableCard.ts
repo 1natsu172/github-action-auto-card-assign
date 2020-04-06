@@ -1,5 +1,3 @@
-import {context} from '@actions/github'
-import {WebhookPayloadProjectCardProjectCard} from '@octokit/webhooks'
 import {getOctokit} from './getOctokit'
 import {getGitHubToken} from './getConfig'
 import {assignableCardInfo} from '../queries/assignableCardInfo.graphql'
@@ -22,7 +20,6 @@ export async function getAssignableCardInfo(
   }
 }
 
-export function getAssignableCardNodeId(): string | undefined {
-  return (context.payload?.project_card as WebhookPayloadProjectCardProjectCard)
-    ?.node_id
+export function getAssignableCardNodeId(obj: AssignableCardInfo): string {
+  return obj.node.content.id
 }

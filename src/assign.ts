@@ -5,8 +5,7 @@ import {
   getAssigneesLoginFromConfig,
   getAssignableCardInfo,
   getAssignableCardNodeId,
-  getAssigneesUserInfo,
-  getAssigneesNodeIdFromUserInfo
+  getProjectCardNodeId
 } from './libs'
 import {
   removeAssigneesFromAssignable,
@@ -14,13 +13,13 @@ import {
 } from './usecases'
 
 export async function assign(): Promise<void> {
-  const cardNodeId = getAssignableCardNodeId()
+  const cardNodeId = getProjectCardNodeId()
   if (!cardNodeId) {
     throw Error('Not found cardNodeId.')
   }
-  const assignableInfo = await getAssignableCardInfo(cardNodeId)
-  // console.log(JSON.stringify(assignableInfo, null, 2))
 
+  const assignableInfo = await getAssignableCardInfo(cardNodeId)
+  const assignableNodeId = getAssignableCardNodeId(assignableInfo)
   const projectName = getProjectName(assignableInfo)
   const columnName = getColumnName(assignableInfo)
   const expectedAssigneesLogin = await getAssigneesLoginFromConfig({
@@ -31,10 +30,21 @@ export async function assign(): Promise<void> {
   /**
    * Remove all existing assignees on the card.
    */
-  await removeAssigneesFromAssignable(assignableInfo)
+  const removeAssigneesResult = await removeAssigneesFromAssignable({
+    assignableInfo,
+    assignableId: assignableNodeId
+  })
+  console.log(
+    'removeAssigneesResult',
+    JSON.stringify(removeAssigneesResult, null, 2)
+  )
 
   /**
    * Add expected assignees to the card.
    */
-  await addAssigneesToAssignable(expectedAssigneesLogin)
+  const addAssigneesResult = await addAssigneesToAssignable({
+    expectedAssigneesLogin,
+    assignableId: assignableNodeId
+  })
+  console.log('addAssigneesResult', JSON.stringify(addAssigneesResult, null, 2))
 }

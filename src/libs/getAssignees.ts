@@ -1,7 +1,7 @@
 import {getConfig, getGitHubToken} from './getConfig'
 import {getOctokit} from './getOctokit'
 import {userInfo} from '../queries/userInfo.graphql'
-import {UserInfo} from '../types'
+import {UserInfo, AssignableCardInfo} from '../types'
 import {checkConfiguredColumn} from '../utils'
 
 export async function getAssigneesLoginFromConfig(params: {
@@ -17,7 +17,7 @@ export async function getAssigneesLoginFromConfig(params: {
     throw Error(error)
   }
 
-  return config[projectName][columnName] || []
+  return config[projectName][columnName]
 }
 
 export async function getAssigneesUserInfo(
@@ -39,4 +39,14 @@ export async function getAssigneesUserInfo(
   } catch (error) {
     throw Error(error)
   }
+}
+
+export function getAssigneesNodeIdFromUserInfo(params: UserInfo[]): string[] {
+  return params.map(u => u.user.id)
+}
+
+export function getAssigneesNodeIdFromAssignableCardInfo(
+  obj: AssignableCardInfo
+): string[] {
+  return obj.node.content.assignees.nodes.map(n => n.id)
 }

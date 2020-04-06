@@ -28,14 +28,15 @@
     "@actions/core": "^1.2.0",
     "@actions/github": "^2.1.1",
     "lodash.isobject": "^3.0.2",
-    "@technote-space/github-action-config-helper": "^1.0.2"
+    "@technote-space/github-action-config-helper": "^1.0.2",
+    "@technote-space/github-action-helper": "^2.0.3"
   },
   "devDependencies": {
     "@types/jest": "^24.0.23",
     "@types/lodash.isobject": "^3.0.6",
     "@types/node": "^12.7.12",
     "@typescript-eslint/parser": "^2.8.0",
-    "@zeit/ncc": "^0.20.5",
+    "@zeit/ncc": "^0.22.0",
     "eslint": "^5.16.0",
     "eslint-plugin-github": "^2.0.0",
     "eslint-plugin-jest": "^22.21.0",
@@ -44,6 +45,7 @@
     "js-yaml": "^3.13.1",
     "prettier": "^2.0.2",
     "ts-jest": "^24.2.0",
-    "typescript": "^3.6.4"
+    "typescript": "^3.8.3",
+    "@octokit/webhooks": "^7.1.2"
   }
 }

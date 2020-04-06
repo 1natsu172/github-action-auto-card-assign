@@ -1,35 +1,40 @@
 import * as core from '@actions/core'
 import {
-  getCardNodeId,
   getProjectName,
   getColumnName,
-  getAssigneeNodeId
-} from './params'
-import {
   getAssigneesLoginFromConfig,
   getAssignableCardInfo,
-  getAssigneesUserInfo
+  getAssignableCardNodeId,
+  getAssigneesUserInfo,
+  getAssigneesNodeIdFromUserInfo
 } from './libs'
+import {
+  removeAssigneesFromAssignable,
+  addAssigneesToAssignable
+} from './usecases'
 
 export async function assign(): Promise<void> {
-  const cardNodeId = getCardNodeId()
+  const cardNodeId = getAssignableCardNodeId()
   if (!cardNodeId) {
     throw Error('Not found cardNodeId.')
   }
-  const assinableInfo = await getAssignableCardInfo(cardNodeId)
-  // console.log(JSON.stringify(assinableInfo, null, 2))
+  const assignableInfo = await getAssignableCardInfo(cardNodeId)
+  // console.log(JSON.stringify(assignableInfo, null, 2))
 
-  const projectName = getProjectName(assinableInfo)
-  const columnName = getColumnName(assinableInfo)
-  const expectAssigneesLogin = await getAssigneesLoginFromConfig({
+  const projectName = getProjectName(assignableInfo)
+  const columnName = getColumnName(assignableInfo)
+  const expectedAssigneesLogin = await getAssigneesLoginFromConfig({
     projectName,
     columnName
   })
 
-  console.log('ex-assigneeLogin', expectAssigneesLogin)
-  const assigneesUserInfo = await getAssigneesUserInfo(expectAssigneesLogin)
-  console.log('ex-infos', assigneesUserInfo)
+  /**
+   * Remove all existing assignees on the card.
+   */
+  await removeAssigneesFromAssignable(assignableInfo)
 
-  const expectAssigneesNodeId = assigneesUserInfo.map(getAssigneeNodeId)
-  console.log('ex-assigneeNodeId', expectAssigneesNodeId)
+  /**
+   * Add expected assignees to the card.
+   */
+  await addAssigneesToAssignable(expectedAssigneesLogin)
 }

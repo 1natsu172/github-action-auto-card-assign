@@ -1111,6 +1111,7 @@ __export(__webpack_require__(513));
 __export(__webpack_require__(13));
 __export(__webpack_require__(508));
 __export(__webpack_require__(90));
+__export(__webpack_require__(107));
 
 
 /***/ }),
@@ -1148,6 +1149,26 @@ module.exports = new Type('tag:yaml.org,2002:set', {
   resolve: resolveYamlSet,
   construct: constructYamlSet
 });
+
+
+/***/ }),
+
+/***/ 107:
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const github_1 = __webpack_require__(469);
+/**
+ * @description
+ * AssignableCard(PR/Issue)'s note is `null`
+ */ function isAssignableCard() {
+    var _a, _b;
+    const projectCardNote = (_b = (_a = github_1.context.payload) === null || _a === void 0 ? void 0 : _a.project_card) === null || _b === void 0 ? void 0 : _b.note;
+    return projectCardNote === null;
+}
+exports.isAssignableCard = isAssignableCard;
 
 
 /***/ }),
@@ -2781,11 +2802,14 @@ const utils_1 = __webpack_require__(95);
 const libs_1 = __webpack_require__(434);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log(JSON.stringify(github_1.context, null, 2));
         try {
             if (!utils_1.isSupportActionEvent()) {
                 throw Error('Triggered from can not support action event.');
             }
-            console.log(JSON.stringify(github_1.context, null, 2));
+            if (!utils_1.isAssignableCard()) {
+                throw Error(utils_1.createSkipActionMessage('The triggered card is not assignable card.'));
+            }
             const configParam = core.getInput('config');
             const ms = core.getInput('milliseconds');
             core.debug(configParam);

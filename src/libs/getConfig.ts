@@ -5,9 +5,14 @@ import {Config, ConfigPath} from '../types'
 import {getOctokit} from './getOctokit'
 import {context} from '@actions/github'
 
+export function getGitHubToken(): string {
+  const token = core.getInput('github_token')
+  return token
+}
+
 export async function getConfig(): Promise<Config> {
   const configPath: ConfigPath = core.getInput('config')
-  const token = core.getInput('github_token')
+  const token = getGitHubToken()
   const octokit = getOctokit(token)
   core.debug(configPath)
   const config = await getConfigObject(configPath, octokit, context)

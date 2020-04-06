@@ -6,7 +6,6 @@ import {assignableCardInfo} from './queries/assignableCardInfo.graphql'
 import {AssignableCardInfo} from './types/assignableCardInfo'
 
 export function getCardNodeId(): string | undefined {
-  // eslint-disable-next-line @typescript-eslint/camelcase
   return (context.payload?.project_card as WebhookPayloadProjectCardProjectCard)
     ?.node_id
 }

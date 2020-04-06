@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 export const context = {
   payload: {
     action: 'moved',

@@ -6,10 +6,14 @@ import {
 } from '../libs'
 import {addAssigneesToAssignable as addAssignees} from '../mutations/addAssigneesToAssignable.graphql'
 
+// FIXME: infer return type mutation result
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Result = any
+
 export async function addAssigneesToAssignable(params: {
   expectedAssigneesLogin: string[]
   assignableId: string
-}): Promise<any> {
+}): Promise<Result> {
   const {expectedAssigneesLogin, assignableId} = params
   console.log('ex-assigneeLogin', expectedAssigneesLogin)
 
@@ -33,7 +37,7 @@ export async function addAssigneesToAssignable(params: {
         assignableId,
         assigneeIds: expectedAssigneesNodeId
       })
-      return res as any
+      return res as Result
     } catch (error) {
       throw Error(error)
     }

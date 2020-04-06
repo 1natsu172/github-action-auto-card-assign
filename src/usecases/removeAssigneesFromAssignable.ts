@@ -6,10 +6,14 @@ import {
 } from '../libs'
 import {removeAssigneesFromAssignable as removeAssignees} from '../mutations/removeAssigneesFromAssignable.graphql'
 
+// FIXME: infer return type mutation result
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Result = any
+
 export async function removeAssigneesFromAssignable(params: {
   assignableInfo: AssignableCardInfo
   assignableId: string
-}): Promise<any> {
+}): Promise<Result> {
   const {assignableId, assignableInfo} = params
   const removeAssigneesNodeId = getAssigneesNodeIdFromAssignableCardInfo(
     assignableInfo
@@ -30,7 +34,7 @@ export async function removeAssigneesFromAssignable(params: {
         assignableId,
         assigneeIds: removeAssigneesNodeId
       })
-      return res as any
+      return res as Result
     } catch (error) {
       throw Error(error)
     }

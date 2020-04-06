@@ -1,6 +1,10 @@
-import {getConfig} from './getConfig'
+import {getConfig, getGitHubToken} from './getConfig'
+import {getOctokit} from './getOctokit'
 
-export async function getAssigneesFromConfig(params: {
+import {userInfo} from '../queries/userInfo.graphql'
+import {UserInfo} from '../types'
+
+export async function getAssigneesLoginFromConfig(params: {
   projectName: string
   columnName: string
 }): Promise<string[]> {
@@ -18,4 +22,25 @@ export async function getAssigneesFromConfig(params: {
   }
 
   return config[projectName][columnName] || []
+}
+
+export async function getAssigneesUserInfo(
+  assigneesLogin: string[]
+): Promise<UserInfo[]> {
+  const token = getGitHubToken()
+  const octokit = getOctokit(token)
+
+  try {
+    return Promise.all(
+      assigneesLogin.map(
+        async assigneeLogin =>
+          (await octokit.graphql({
+            query: userInfo,
+            login: assigneeLogin
+          })) as UserInfo
+      )
+    )
+  } catch (error) {
+    throw Error(error)
+  }
 }

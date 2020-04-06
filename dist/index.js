@@ -2686,7 +2686,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
 const wait_1 = __webpack_require__(521);
-// import {getConfig} from './libs/getConfig'
+// import {getConfig} from './libs'
 const assign_1 = __webpack_require__(659);
 const utils_1 = __webpack_require__(95);
 function run() {
@@ -2708,6 +2708,7 @@ function run() {
         }
         catch (error) {
             core.setFailed(error.toString());
+            core.error(JSON.stringify(error, null, 2));
         }
     });
 }
@@ -2750,6 +2751,45 @@ exports.getUserAgent = getUserAgent;
 /***/ (function(module) {
 
 module.exports = {"name":"@octokit/rest","version":"16.43.1","publishConfig":{"access":"public"},"description":"GitHub REST API client for Node.js","keywords":["octokit","github","rest","api-client"],"author":"Gregor Martynus (https://github.com/gr2m)","contributors":[{"name":"Mike de Boer","email":"info@mikedeboer.nl"},{"name":"Fabian Jakobs","email":"fabian@c9.io"},{"name":"Joe Gallo","email":"joe@brassafrax.com"},{"name":"Gregor Martynus","url":"https://github.com/gr2m"}],"repository":"https://github.com/octokit/rest.js","dependencies":{"@octokit/auth-token":"^2.4.0","@octokit/plugin-paginate-rest":"^1.1.1","@octokit/plugin-request-log":"^1.0.0","@octokit/plugin-rest-endpoint-methods":"2.4.0","@octokit/request":"^5.2.0","@octokit/request-error":"^1.0.2","atob-lite":"^2.0.0","before-after-hook":"^2.0.0","btoa-lite":"^1.0.0","deprecation":"^2.0.0","lodash.get":"^4.4.2","lodash.set":"^4.3.2","lodash.uniq":"^4.5.0","octokit-pagination-methods":"^1.1.0","once":"^1.4.0","universal-user-agent":"^4.0.0"},"devDependencies":{"@gimenete/type-writer":"^0.1.3","@octokit/auth":"^1.1.1","@octokit/fixtures-server":"^5.0.6","@octokit/graphql":"^4.2.0","@types/node":"^13.1.0","bundlesize":"^0.18.0","chai":"^4.1.2","compression-webpack-plugin":"^3.1.0","cypress":"^3.0.0","glob":"^7.1.2","http-proxy-agent":"^4.0.0","lodash.camelcase":"^4.3.0","lodash.merge":"^4.6.1","lodash.upperfirst":"^4.3.1","lolex":"^5.1.2","mkdirp":"^1.0.0","mocha":"^7.0.1","mustache":"^4.0.0","nock":"^11.3.3","npm-run-all":"^4.1.2","nyc":"^15.0.0","prettier":"^1.14.2","proxy":"^1.0.0","semantic-release":"^17.0.0","sinon":"^8.0.0","sinon-chai":"^3.0.0","sort-keys":"^4.0.0","string-to-arraybuffer":"^1.0.0","string-to-jsdoc-comment":"^1.0.0","typescript":"^3.3.1","webpack":"^4.0.0","webpack-bundle-analyzer":"^3.0.0","webpack-cli":"^3.0.0"},"types":"index.d.ts","scripts":{"coverage":"nyc report --reporter=html && open coverage/index.html","lint":"prettier --check '{lib,plugins,scripts,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' index.js README.md package.json","lint:fix":"prettier --write '{lib,plugins,scripts,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' index.js README.md package.json","pretest":"npm run -s lint","test":"nyc mocha test/mocha-node-setup.js \"test/*/**/*-test.js\"","test:browser":"cypress run --browser chrome","build":"npm-run-all build:*","build:ts":"npm run -s update-endpoints:typescript","prebuild:browser":"mkdirp dist/","build:browser":"npm-run-all build:browser:*","build:browser:development":"webpack --mode development --entry . --output-library=Octokit --output=./dist/octokit-rest.js --profile --json > dist/bundle-stats.json","build:browser:production":"webpack --mode production --entry . --plugin=compression-webpack-plugin --output-library=Octokit --output-path=./dist --output-filename=octokit-rest.min.js --devtool source-map","generate-bundle-report":"webpack-bundle-analyzer dist/bundle-stats.json --mode=static --no-open --report dist/bundle-report.html","update-endpoints":"npm-run-all update-endpoints:*","update-endpoints:fetch-json":"node scripts/update-endpoints/fetch-json","update-endpoints:typescript":"node scripts/update-endpoints/typescript","prevalidate:ts":"npm run -s build:ts","validate:ts":"tsc --target es6 --noImplicitAny index.d.ts","postvalidate:ts":"tsc --noEmit --target es6 test/typescript-validate.ts","start-fixtures-server":"octokit-fixtures-server"},"license":"MIT","files":["index.js","index.d.ts","lib","plugins"],"nyc":{"ignore":["test"]},"release":{"publish":["@semantic-release/npm",{"path":"@semantic-release/github","assets":["dist/*","!dist/*.map.gz"]}]},"bundlesize":[{"path":"./dist/octokit-rest.min.js.gz","maxSize":"33 kB"}]};
+
+/***/ }),
+
+/***/ 227:
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const getOctokit_1 = __webpack_require__(946);
+const getConfig_1 = __webpack_require__(695);
+const assignableCardInfo_graphql_1 = __webpack_require__(325);
+function getAssignableCardInfo(id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const token = getConfig_1.getGitHubToken();
+        const octokit = getOctokit_1.getOctokit(token);
+        try {
+            const res = yield octokit.graphql({
+                query: assignableCardInfo_graphql_1.assignableCardInfo,
+                id
+            });
+            return res;
+        }
+        catch (error) {
+            throw Error(error);
+        }
+    });
+}
+exports.getAssignableCardInfo = getAssignableCardInfo;
+
 
 /***/ }),
 
@@ -5499,6 +5539,25 @@ module.exports = require("assert");
 
 /***/ }),
 
+/***/ 359:
+/***/ (function(__unusedmodule, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.userInfo = `
+  query userInfo($login: String!) {
+    user(login: $login) {
+      name
+      login
+      id
+    }
+  }
+`;
+
+
+/***/ }),
+
 /***/ 363:
 /***/ (function(module) {
 
@@ -6351,6 +6410,23 @@ function escapeProperty(s) {
         .replace(/,/g, '%2C');
 }
 //# sourceMappingURL=command.js.map
+
+/***/ }),
+
+/***/ 434:
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+__export(__webpack_require__(695));
+__export(__webpack_require__(946));
+__export(__webpack_require__(493));
+__export(__webpack_require__(227));
+
 
 /***/ }),
 
@@ -10277,7 +10353,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const getConfig_1 = __webpack_require__(695);
-function getAssigneesFromConfig(params) {
+const getOctokit_1 = __webpack_require__(946);
+const userInfo_graphql_1 = __webpack_require__(359);
+function getAssigneesLoginFromConfig(params) {
     return __awaiter(this, void 0, void 0, function* () {
         const { projectName, columnName } = params;
         const config = yield getConfig_1.getConfig();
@@ -10290,7 +10368,25 @@ function getAssigneesFromConfig(params) {
         return config[projectName][columnName] || [];
     });
 }
-exports.getAssigneesFromConfig = getAssigneesFromConfig;
+exports.getAssigneesLoginFromConfig = getAssigneesLoginFromConfig;
+function getAssigneesUserInfo(assigneesLogin) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const token = getConfig_1.getGitHubToken();
+        const octokit = getOctokit_1.getOctokit(token);
+        try {
+            return Promise.all(assigneesLogin.map((assigneeLogin) => __awaiter(this, void 0, void 0, function* () {
+                return (yield octokit.graphql({
+                    query: userInfo_graphql_1.userInfo,
+                    login: assigneeLogin
+                }));
+            })));
+        }
+        catch (error) {
+            throw Error(error);
+        }
+    });
+}
+exports.getAssigneesUserInfo = getAssigneesUserInfo;
 
 
 /***/ }),
@@ -10358,7 +10454,6 @@ const github_1 = __webpack_require__(469);
 const constants_1 = __webpack_require__(32);
 function isSupportActionEvent() {
     var _a;
-    // eslint-disable-next-line @typescript-eslint/camelcase
     const hasProjectCardContext = (_a = github_1.context.payload) === null || _a === void 0 ? void 0 : _a.project_card;
     const isSupportEvent = constants_1.SUPPORT_ACTION_EVENT.some(event => event === github_1.context.payload.action);
     return hasProjectCardContext && isSupportEvent;
@@ -11718,22 +11813,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const params_1 = __webpack_require__(816);
-const getAssignees_1 = __webpack_require__(493);
+const libs_1 = __webpack_require__(434);
 function assign() {
     return __awaiter(this, void 0, void 0, function* () {
         const cardNodeId = params_1.getCardNodeId();
         if (!cardNodeId) {
             throw Error('Not found cardNodeId.');
         }
-        const assinableInfo = yield params_1.getAssignableCardInfo(cardNodeId);
+        const assinableInfo = yield libs_1.getAssignableCardInfo(cardNodeId);
         // console.log(JSON.stringify(assinableInfo, null, 2))
         const projectName = params_1.getProjectName(assinableInfo);
         const columnName = params_1.getColumnName(assinableInfo);
-        const expectAssignees = yield getAssignees_1.getAssigneesFromConfig({
+        const expectAssigneesLogin = yield libs_1.getAssigneesLoginFromConfig({
             projectName,
             columnName
         });
-        console.log('exassignee', expectAssignees);
+        console.log('ex-assigneeLogin', expectAssigneesLogin);
+        const assigneesUserInfo = yield libs_1.getAssigneesUserInfo(expectAssigneesLogin);
+        console.log('ex-infos', assigneesUserInfo);
+        const expectAssigneesNodeId = assigneesUserInfo.map(params_1.getAssigneeNodeId);
+        console.log('ex-assigneeNodeId', expectAssigneesNodeId);
     });
 }
 exports.assign = assign;
@@ -13433,43 +13532,13 @@ function whichSync (cmd, opt) {
 
 "use strict";
 
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const github_1 = __webpack_require__(469);
-const getOctokit_1 = __webpack_require__(946);
-const getConfig_1 = __webpack_require__(695);
-const assignableCardInfo_graphql_1 = __webpack_require__(325);
 function getCardNodeId() {
     var _a, _b;
-    // eslint-disable-next-line @typescript-eslint/camelcase
     return (_b = (_a = github_1.context.payload) === null || _a === void 0 ? void 0 : _a.project_card) === null || _b === void 0 ? void 0 : _b.node_id;
 }
 exports.getCardNodeId = getCardNodeId;
-function getAssignableCardInfo(id) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const token = getConfig_1.getGitHubToken();
-        const octokit = getOctokit_1.getOctokit(token);
-        try {
-            const res = yield octokit.graphql({
-                query: assignableCardInfo_graphql_1.assignableCardInfo,
-                id
-            });
-            return res;
-        }
-        catch (error) {
-            throw Error(error);
-        }
-    });
-}
-exports.getAssignableCardInfo = getAssignableCardInfo;
 function getProjectName(obj) {
     return obj.node.project.name;
 }
@@ -13478,6 +13547,10 @@ function getColumnName(obj) {
     return obj.node.column.name;
 }
 exports.getColumnName = getColumnName;
+function getAssigneeNodeId(obj) {
+    return obj.data.user.id;
+}
+exports.getAssigneeNodeId = getAssigneeNodeId;
 
 
 /***/ }),

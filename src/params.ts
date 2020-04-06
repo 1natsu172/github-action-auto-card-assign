@@ -1,30 +1,10 @@
 import {context} from '@actions/github'
 import {WebhookPayloadProjectCardProjectCard} from '@octokit/webhooks'
-import {getOctokit} from './libs/getOctokit'
-import {getGitHubToken} from './libs/getConfig'
-import {assignableCardInfo} from './queries/assignableCardInfo.graphql'
-import {AssignableCardInfo} from './types/assignableCardInfo'
+import {AssignableCardInfo, UserInfo} from './types'
 
 export function getCardNodeId(): string | undefined {
   return (context.payload?.project_card as WebhookPayloadProjectCardProjectCard)
     ?.node_id
-}
-
-export async function getAssignableCardInfo(
-  id: string
-): Promise<AssignableCardInfo> {
-  const token = getGitHubToken()
-  const octokit = getOctokit(token)
-
-  try {
-    const res = await octokit.graphql({
-      query: assignableCardInfo,
-      id
-    })
-    return res as AssignableCardInfo
-  } catch (error) {
-    throw Error(error)
-  }
 }
 
 export function getProjectName(obj: AssignableCardInfo): string {
@@ -33,4 +13,8 @@ export function getProjectName(obj: AssignableCardInfo): string {
 
 export function getColumnName(obj: AssignableCardInfo): string {
   return obj.node.column.name
+}
+
+export function getAssigneeNodeId(obj: UserInfo): string {
+  return obj.data.user.id
 }

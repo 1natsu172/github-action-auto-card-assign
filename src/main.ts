@@ -2,7 +2,7 @@ import * as core from '@actions/core'
 import {context} from '@actions/github'
 import {Logger} from '@technote-space/github-action-helper'
 import {wait} from './wait'
-// import {getConfig} from './libs/getConfig'
+// import {getConfig} from './libs'
 import {assign} from './assign'
 import {isSupportActionEvent} from './utils'
 
@@ -26,6 +26,7 @@ async function run(): Promise<void> {
     core.setOutput('time', new Date().toTimeString())
   } catch (error) {
     core.setFailed(error.toString())
+    core.error(JSON.stringify(error, null, 2))
   }
 }
 

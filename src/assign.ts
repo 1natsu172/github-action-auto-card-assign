@@ -1,11 +1,15 @@
 import * as core from '@actions/core'
 import {
-  getAssignableCardInfo,
   getCardNodeId,
   getProjectName,
-  getColumnName
+  getColumnName,
+  getAssigneeNodeId
 } from './params'
-import {getAssigneesFromConfig} from './libs/getAssignees'
+import {
+  getAssigneesLoginFromConfig,
+  getAssignableCardInfo,
+  getAssigneesUserInfo
+} from './libs'
 
 export async function assign(): Promise<void> {
   const cardNodeId = getCardNodeId()
@@ -17,9 +21,14 @@ export async function assign(): Promise<void> {
 
   const projectName = getProjectName(assinableInfo)
   const columnName = getColumnName(assinableInfo)
-  const expectAssignees = await getAssigneesFromConfig({
+  const expectAssigneesLogin = await getAssigneesLoginFromConfig({
     projectName,
     columnName
   })
-  console.log('exassignee', expectAssignees)
+  console.log('ex-assigneeLogin', expectAssigneesLogin)
+
+  const assigneesUserInfo = await getAssigneesUserInfo(expectAssigneesLogin)
+
+  const expectAssigneesNodeId = assigneesUserInfo.map(getAssigneeNodeId)
+  console.log('ex-assigneeNodeId', expectAssigneesNodeId)
 }

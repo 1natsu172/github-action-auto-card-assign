@@ -1,7 +1,7 @@
 name: "Auto card assign"
 on:
   project_card:
-    types: ["created", "moved"]
+    types: ["created", "moved", "converted"]
 
 jobs:
   card_assign:

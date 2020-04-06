@@ -463,7 +463,7 @@ module.exports = new Schema({
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SUPPORT_ACTION_EVENT = ['moved', 'created'];
+exports.SUPPORT_ACTION_EVENT = ['moved', 'created', 'converted'];
 exports.FLAG_KEYWORD = {
     SKIP_ACTION: '[SKIP_ACTION]'
 };

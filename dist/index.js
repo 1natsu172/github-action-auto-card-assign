@@ -13548,7 +13548,7 @@ function getColumnName(obj) {
 }
 exports.getColumnName = getColumnName;
 function getAssigneeNodeId(obj) {
-    return obj.data.user.id;
+    return obj.user.id;
 }
 exports.getAssigneeNodeId = getAssigneeNodeId;
 

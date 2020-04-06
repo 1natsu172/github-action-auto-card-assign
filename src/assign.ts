@@ -25,9 +25,10 @@ export async function assign(): Promise<void> {
     projectName,
     columnName
   })
-  console.log('ex-assigneeLogin', expectAssigneesLogin)
 
+  console.log('ex-assigneeLogin', expectAssigneesLogin)
   const assigneesUserInfo = await getAssigneesUserInfo(expectAssigneesLogin)
+  console.log('ex-infos', assigneesUserInfo)
 
   const expectAssigneesNodeId = assigneesUserInfo.map(getAssigneeNodeId)
   console.log('ex-assigneeNodeId', expectAssigneesNodeId)

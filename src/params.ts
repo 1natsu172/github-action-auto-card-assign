@@ -16,5 +16,5 @@ export function getColumnName(obj: AssignableCardInfo): string {
 }
 
 export function getAssigneeNodeId(obj: UserInfo): string {
-  return obj.data.user.id
+  return obj.user.id
 }

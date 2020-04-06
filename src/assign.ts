@@ -27,24 +27,29 @@ export async function assign(): Promise<void> {
     columnName
   })
 
+  core.info(`assignableInfo: ${assignableInfo}`)
+
   /**
    * Remove all existing assignees on the card.
    */
-  const removeAssigneesResult = await removeAssigneesFromAssignable({
-    assignableInfo,
-    assignableId: assignableNodeId
-  })
-  console.log(
-    'removeAssigneesResult',
-    JSON.stringify(removeAssigneesResult, null, 2)
+  core.group(
+    'removeAssigneesFromAssignable',
+    async () =>
+      await removeAssigneesFromAssignable({
+        assignableInfo,
+        assignableId: assignableNodeId
+      })
   )
 
   /**
    * Add expected assignees to the card.
    */
-  const addAssigneesResult = await addAssigneesToAssignable({
-    expectedAssigneesLogin,
-    assignableId: assignableNodeId
-  })
-  console.log('addAssigneesResult', JSON.stringify(addAssigneesResult, null, 2))
+  core.group(
+    'addAssigneesToAssignable',
+    async () =>
+      await addAssigneesToAssignable({
+        expectedAssigneesLogin,
+        assignableId: assignableNodeId
+      })
+  )
 }

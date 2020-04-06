@@ -2802,7 +2802,9 @@ const utils_1 = __webpack_require__(95);
 const libs_1 = __webpack_require__(434);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log(JSON.stringify(github_1.context, null, 2));
+        core.startGroup('::debug::context');
+        core.debug(JSON.stringify(github_1.context, null, 2));
+        core.endGroup();
         try {
             if (!utils_1.isSupportActionEvent()) {
                 throw Error('Triggered from can not support action event.');
@@ -2881,18 +2883,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const core = __importStar(__webpack_require__(470));
 const libs_1 = __webpack_require__(434);
 const addAssigneesToAssignable_graphql_1 = __webpack_require__(51);
 function addAssigneesToAssignable(params) {
     return __awaiter(this, void 0, void 0, function* () {
         const { expectedAssigneesLogin, assignableId } = params;
-        console.log('ex-assigneeLogin', expectedAssigneesLogin);
+        core.info(`expectedAssigneesLogin' ${expectedAssigneesLogin}`);
         if (expectedAssigneesLogin.length) {
             const assigneesUserInfo = yield libs_1.getAssigneesUserInfo(expectedAssigneesLogin);
-            console.log('ex-infos', assigneesUserInfo);
+            core.info(`expectedAssigneesUserInfo: ${assigneesUserInfo}`);
             const expectedAssigneesNodeId = libs_1.getAssigneesNodeIdFromUserInfo(assigneesUserInfo);
-            console.log('ex-assigneeNodeId', expectedAssigneesNodeId);
             const token = libs_1.getGitHubToken();
             const octokit = libs_1.getOctokit(token);
             try {
@@ -2901,6 +2910,7 @@ function addAssigneesToAssignable(params) {
                     assignableId,
                     assigneeIds: expectedAssigneesNodeId
                 });
+                core.info(JSON.stringify(res, null, 2));
                 return res;
             }
             catch (error) {
@@ -3353,16 +3363,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const core = __importStar(__webpack_require__(470));
 const libs_1 = __webpack_require__(434);
 const removeAssigneesFromAssignable_graphql_1 = __webpack_require__(579);
 function removeAssigneesFromAssignable(params) {
     return __awaiter(this, void 0, void 0, function* () {
         const { assignableId, assignableInfo } = params;
         const removeAssigneesNodeId = libs_1.getAssigneesNodeIdFromAssignableCardInfo(assignableInfo);
-        console.log('info', JSON.stringify(assignableInfo, null, 2));
-        console.log('id', assignableId);
-        console.log('removeAssignees', removeAssigneesNodeId);
+        core.info(`removeAssigneesNodeId: ${removeAssigneesNodeId}`);
         if (removeAssigneesNodeId.length) {
             const token = libs_1.getGitHubToken();
             const octokit = libs_1.getOctokit(token);
@@ -3372,6 +3388,7 @@ function removeAssigneesFromAssignable(params) {
                     assignableId,
                     assigneeIds: removeAssigneesNodeId
                 });
+                core.info(JSON.stringify(res, null, 2));
                 return res;
             }
             catch (error) {
@@ -12128,7 +12145,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const core = __importStar(__webpack_require__(470));
 const libs_1 = __webpack_require__(434);
 const usecases_1 = __webpack_require__(878);
 function assign() {
@@ -12145,22 +12170,25 @@ function assign() {
             projectName,
             columnName
         });
+        core.info(`assignableInfo: ${assignableInfo}`);
         /**
          * Remove all existing assignees on the card.
          */
-        const removeAssigneesResult = yield usecases_1.removeAssigneesFromAssignable({
-            assignableInfo,
-            assignableId: assignableNodeId
-        });
-        console.log('removeAssigneesResult', JSON.stringify(removeAssigneesResult, null, 2));
+        core.group('removeAssigneesFromAssignable', () => __awaiter(this, void 0, void 0, function* () {
+            return yield usecases_1.removeAssigneesFromAssignable({
+                assignableInfo,
+                assignableId: assignableNodeId
+            });
+        }));
         /**
          * Add expected assignees to the card.
          */
-        const addAssigneesResult = yield usecases_1.addAssigneesToAssignable({
-            expectedAssigneesLogin,
-            assignableId: assignableNodeId
-        });
-        console.log('addAssigneesResult', JSON.stringify(addAssigneesResult, null, 2));
+        core.group('addAssigneesToAssignable', () => __awaiter(this, void 0, void 0, function* () {
+            return yield usecases_1.addAssigneesToAssignable({
+                expectedAssigneesLogin,
+                assignableId: assignableNodeId
+            });
+        }));
     });
 }
 exports.assign = assign;

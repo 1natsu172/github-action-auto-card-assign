@@ -1,3 +1,4 @@
+import * as core from '@actions/core'
 import {AssignableCardInfo} from '../types'
 import {
   getAssigneesNodeIdFromAssignableCardInfo,
@@ -19,10 +20,7 @@ export async function removeAssigneesFromAssignable(params: {
     assignableInfo
   )
 
-  console.log('info', JSON.stringify(assignableInfo, null, 2))
-  console.log('id', assignableId)
-
-  console.log('removeAssignees', removeAssigneesNodeId)
+  core.info(`removeAssigneesNodeId: ${removeAssigneesNodeId}`)
 
   if (removeAssigneesNodeId.length) {
     const token = getGitHubToken()
@@ -34,6 +32,9 @@ export async function removeAssigneesFromAssignable(params: {
         assignableId,
         assigneeIds: removeAssigneesNodeId
       })
+
+      core.info(JSON.stringify(res, null, 2))
+
       return res as Result
     } catch (error) {
       throw Error(error)

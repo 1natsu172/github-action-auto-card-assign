@@ -1,6 +1,5 @@
 import * as core from '@actions/core'
 import {context} from '@actions/github'
-import {Logger} from '@technote-space/github-action-helper'
 import {wait} from './wait'
 // import {getConfig} from './libs'
 import {assign} from './assign'
@@ -12,7 +11,9 @@ import {
 import {thrownHandler} from './libs'
 
 async function run(): Promise<void> {
-  console.log(JSON.stringify(context, null, 2))
+  core.startGroup('::debug::context')
+  core.debug(JSON.stringify(context, null, 2))
+  core.endGroup()
 
   try {
     if (!isSupportActionEvent()) {

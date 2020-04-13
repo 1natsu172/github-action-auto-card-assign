@@ -2796,7 +2796,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
 const github_1 = __webpack_require__(469);
-const wait_1 = __webpack_require__(521);
 const assign_1 = __webpack_require__(659);
 const utils_1 = __webpack_require__(95);
 const libs_1 = __webpack_require__(434);
@@ -2805,6 +2804,9 @@ function run() {
         core.startGroup('::debug::context');
         core.debug(utils_1.prettyStringify(github_1.context));
         core.endGroup();
+        core.startGroup('::debug::config');
+        core.debug(utils_1.prettyStringify(core.getInput('config')));
+        core.endGroup();
         try {
             if (!utils_1.isSupportActionEvent()) {
                 throw Error('Triggered from can not support action event.');
@@ -2812,15 +2814,7 @@ function run() {
             if (!utils_1.isAssignableCard()) {
                 throw Error(utils_1.createSkipActionMessage('The triggered card is not assignable card.'));
             }
-            const configParam = core.getInput('config');
-            const ms = core.getInput('milliseconds');
-            core.debug(configParam);
             yield assign_1.assign();
-            core.debug(`Waiting ${ms} milliseconds ...`);
-            core.debug(new Date().toTimeString());
-            yield wait_1.wait(parseInt(ms, 10));
-            core.debug(new Date().toTimeString());
-            core.setOutput('time', new Date().toTimeString());
         }
         catch (error) {
             libs_1.thrownHandler(error);
@@ -10590,6 +10584,9 @@ module.exports = resolveCommand;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * use for debugging.
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function prettyStringify(message) {
     return JSON.stringify(message, null, 2);
@@ -10651,11 +10648,11 @@ function getAssigneesUserInfo(assigneesLogin) {
 }
 exports.getAssigneesUserInfo = getAssigneesUserInfo;
 function getAssigneesNodeIdFromUserInfo(params) {
-    return params.map(u => u.user.id);
+    return params.map((u) => u.user.id);
 }
 exports.getAssigneesNodeIdFromUserInfo = getAssigneesNodeIdFromUserInfo;
 function getAssigneesNodeIdFromAssignableCardInfo(obj) {
-    return obj.node.content.assignees.nodes.map(n => n.id);
+    return obj.node.content.assignees.nodes.map((n) => n.id);
 }
 exports.getAssigneesNodeIdFromAssignableCardInfo = getAssigneesNodeIdFromAssignableCardInfo;
 
@@ -10741,40 +10738,10 @@ const constants_1 = __webpack_require__(32);
 function isSupportActionEvent() {
     var _a;
     const hasProjectCardContext = (_a = github_1.context.payload) === null || _a === void 0 ? void 0 : _a.project_card;
-    const isSupportEvent = constants_1.SUPPORT_ACTION_EVENT.some(event => event === github_1.context.payload.action);
+    const isSupportEvent = constants_1.SUPPORT_ACTION_EVENT.some((event) => event === github_1.context.payload.action);
     return hasProjectCardContext && isSupportEvent;
 }
 exports.isSupportActionEvent = isSupportActionEvent;
-
-
-/***/ }),
-
-/***/ 521:
-/***/ (function(__unusedmodule, exports) {
-
-"use strict";
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-function wait(milliseconds) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return new Promise(resolve => {
-            if (isNaN(milliseconds)) {
-                throw new Error('milliseconds not a number');
-            }
-            setTimeout(() => resolve('done!'), milliseconds);
-        });
-    });
-}
-exports.wait = wait;
 
 
 /***/ }),

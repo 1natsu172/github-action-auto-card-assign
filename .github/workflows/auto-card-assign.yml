@@ -11,6 +11,5 @@ jobs:
       - uses: ./
         id: card_assign_action
         with:
-          milliseconds: 1000
           # github_token: "${{ secrets.GITHUB_TOKEN }}"
           # config: "card-assign.yml"

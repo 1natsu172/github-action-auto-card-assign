@@ -59,7 +59,7 @@ describe('checkConfiguredColumn', () => {
         projectName: 'myProject1',
         columnName: 'myColumn1'
       })
-      await expect(actual).resolves
+      await expect(actual).resolves.toBe(undefined)
     })
   })
 })

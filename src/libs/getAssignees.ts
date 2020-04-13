@@ -29,7 +29,7 @@ export async function getAssigneesUserInfo(
   try {
     return Promise.all(
       assigneesLogin.map(
-        async assigneeLogin =>
+        async (assigneeLogin) =>
           (await octokit.graphql({
             query: userInfo,
             login: assigneeLogin
@@ -42,11 +42,11 @@ export async function getAssigneesUserInfo(
 }
 
 export function getAssigneesNodeIdFromUserInfo(params: UserInfo[]): string[] {
-  return params.map(u => u.user.id)
+  return params.map((u) => u.user.id)
 }
 
 export function getAssigneesNodeIdFromAssignableCardInfo(
   obj: AssignableCardInfo
 ): string[] {
-  return obj.node.content.assignees.nodes.map(n => n.id)
+  return obj.node.content.assignees.nodes.map((n) => n.id)
 }

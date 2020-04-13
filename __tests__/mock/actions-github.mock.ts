@@ -1,4 +1,3 @@
-// @ts-ignore
 import {createDummyGitHubContext} from '../helper/githubContextHelper'
 
 /**

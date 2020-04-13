@@ -23,11 +23,11 @@ describe('checkConfiguredColumn', () => {
 
     test('should be thrown', async () => {
       const actual = checkConfiguredColumn({
-        projectName: 'myIgnoredProject1',
+        projectName: 'to do board',
         columnName: 'John'
       })
 
-      await expect(actual).rejects.toThrow('myIgnoredProject1')
+      await expect(actual).rejects.toThrow('to do board')
       /**
        * 'thrown with SKIP_ACTION message'
        */
@@ -48,6 +48,18 @@ describe('checkConfiguredColumn', () => {
        * 'thrown with SKIP_ACTION message'
        */
       await expect(actual).rejects.toThrow(FLAG_KEYWORD.SKIP_ACTION)
+    })
+  })
+
+  describe('configured projectName and columnName', () => {
+    mockedGetConfig.mockResolvedValueOnce(config)
+
+    test('should be resolve', async () => {
+      const actual = checkConfiguredColumn({
+        projectName: 'myProject1',
+        columnName: 'myColumn1'
+      })
+      await expect(actual).resolves
     })
   })
 })

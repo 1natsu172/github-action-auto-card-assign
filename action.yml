@@ -1,5 +1,5 @@
 name: "Auto card assign"
-description: "Assign appropriate assignees by column to card moved on github projects"
+description: "Assign appropriate assignees by column to card on github projects"
 author: "1natsu172"
 inputs:
   github_token:

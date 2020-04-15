@@ -9,7 +9,7 @@ This is GitHub Actions that sets Assignees on the card for each column of GitHub
 Supporting action triggers work when create or move an Issue/PullRequest card or convert a note to an Issue card.
 
 ## Screenshot
-![DEMO GIF]()
+![DEMO GIF](https://raw.githubusercontent.com/1natsu172/github-action-auto-card-assign/d0035515ff6b689b43c0a65e01e3943a8dde9897/media/demo.gif)
 
 ## Usage
 
@@ -46,9 +46,9 @@ jobs:
 example `.github/project-card-assign.yml`
 
 ```yaml
-kanban1:
-  To do:
-    - "memberName1"
+kanban1: # Project name
+  To do: # Column name
+    - "memberName1" # assignee
   In progress:
     - "memberName2"
   Review in progress:
@@ -65,7 +65,7 @@ kanban1:
 ### Follow the config format
 
 * Please write yaml
-  * [configure example](https://codebeautify.org/yaml-to-json-xml-csv/cbdefe4d)
+  * [configure example](https://codebeautify.org/yaml-to-json-xml-csv/cbf4517b)
   * Type definition of [Config](https://github.com/1natsu172/github-action-auto-card-assign/blob/master/src/types/config.ts) = Result of [yaml to json](https://codebeautify.org/yaml-to-json-xml-csv#)
   * assignee names are expressed a `string[]`
 
@@ -73,8 +73,8 @@ kanban1:
 
 According to the image below.
 
-![project name and column name is here]()
-![login name is here]()
+![project name and column name is here](https://github.com/1natsu172/github-action-auto-card-assign/blob/d0035515ff6b689b43c0a65e01e3943a8dde9897/media/project-and-column-name.png?raw=true)
+![login name is here](https://github.com/1natsu172/github-action-auto-card-assign/blob/d0035515ff6b689b43c0a65e01e3943a8dde9897/media/login-name.png?raw=true)
 
 **Be careful!**
 

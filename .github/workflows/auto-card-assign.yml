@@ -12,4 +12,4 @@ jobs:
         id: card_assign_action
         with:
           # github_token: "${{ secrets.GITHUB_TOKEN }}"
-          # config: "card-assign.yml"
+          config: "project-card-assign.yml"

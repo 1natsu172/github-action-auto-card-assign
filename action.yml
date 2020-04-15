@@ -8,11 +8,11 @@ inputs:
     required: true
   config:
     description: "This Action's config."
-    default: "card-assign.yml"
+    default: "project-card-assign.yml"
     required: true
 branding:
   icon: "user-check"
   color: "gray-dark"
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "node12"
+  main: "dist/index.js"

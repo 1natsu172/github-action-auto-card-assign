@@ -2,7 +2,7 @@
   <a href="https://github.com/actions/typescript-action/actions"><img alt="typescript-action status" src="https://github.com/actions/typescript-action/workflows/build-test/badge.svg"></a>
 </p>
 
-# GitHub Actions Auto-Column-Assign
+# GitHub Actions Auto-Card-Assign
 
 This is GitHub Actions that sets Assignees on the card for each column of GitHub Project.
 
@@ -48,7 +48,7 @@ example `.github/project-card-assign.yml`
 ```yaml
 kanban1: # Project name
   To do: # Column name
-    - "memberName1" # assignee
+    - "memberName1" # Login name(assignee name)
   In progress:
     - "memberName2"
   Review in progress:

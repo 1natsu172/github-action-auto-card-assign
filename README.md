@@ -117,3 +117,39 @@ Use [SemVer](http://semver.org/) for versioning. For the versions available, see
 ## ©️ License
 
 MIT © [1natsu172](https://github.com/1natsu172)
+
+
+---
+
+## For developer
+
+### Versioning
+
+The presence or absence of the `v` prefix is ​​intentional.
+
+`v1 = "^1.0.0"`
+`1.0.0 = "1.0.0"`
+
+Whenever release, must release the new version(non-v-prefix) and major version release(has-v-prefix).
+
+ref: https://github.com/actions/toolkit/blob/master/docs/action-versioning.md
+
+### After new release branch merged
+
+#### Release new specific version
+
+Release by GUI operation according to the official publishing-action guide.
+
+https://help.github.com/ja/actions/building-actions/publishing-actions-in-github-marketplace#publishing-an-action
+
+Be careful: specific version release tag is `non-v-prefix`
+
+#### Update major version tag
+
+And then, update existing major version tag by local push.
+
+```bash
+git checkout master
+git tag -fa v1 -m "Update v1 tag"
+git push origin v1 --force
+```

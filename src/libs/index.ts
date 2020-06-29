@@ -1,5 +1,4 @@
 export * from './getConfig'
-export * from './getOctokit'
 export * from './getProject'
 export * from './getColumn'
 export * from './getAssignees'

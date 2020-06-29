@@ -1,5 +1,5 @@
 import {getConfig, getGitHubToken} from './getConfig'
-import {getOctokit} from './getOctokit'
+import {getOctokit} from '@actions/github'
 import {userInfo} from '../queries/userInfo.graphql'
 import {UserInfo, AssignableCardInfo} from '../types'
 import {checkConfiguredColumn} from '../utils'

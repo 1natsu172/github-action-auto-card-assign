@@ -1,10 +1,7 @@
 import * as core from '@actions/core'
+import {getOctokit} from '@actions/github'
 import {AssignableCardInfo} from '../types'
-import {
-  getAssigneesNodeIdFromAssignableCardInfo,
-  getGitHubToken,
-  getOctokit
-} from '../libs'
+import {getAssigneesNodeIdFromAssignableCardInfo, getGitHubToken} from '../libs'
 import {removeAssigneesFromAssignable as removeAssignees} from '../mutations/removeAssigneesFromAssignable.graphql'
 import {prettyStringify} from '../utils'
 

@@ -2,8 +2,7 @@ import * as core from '@actions/core'
 import {getConfig as getConfigObject} from '@technote-space/github-action-config-helper'
 import isObject from 'lodash.isobject'
 import {Config, ConfigPath} from '../types'
-import {getOctokit} from './getOctokit'
-import {context} from '@actions/github'
+import {context, getOctokit} from '@actions/github'
 
 export function getGitHubToken(): string {
   const token = core.getInput('github_token')

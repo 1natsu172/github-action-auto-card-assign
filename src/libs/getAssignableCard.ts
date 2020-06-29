@@ -1,4 +1,4 @@
-import {getOctokit} from './getOctokit'
+import {getOctokit} from '@actions/github'
 import {getGitHubToken} from './getConfig'
 import {assignableCardInfo} from '../queries/assignableCardInfo.graphql'
 import {AssignableCardInfo} from '../types'

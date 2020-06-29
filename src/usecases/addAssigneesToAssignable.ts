@@ -1,9 +1,9 @@
 import * as core from '@actions/core'
+import {getOctokit} from '@actions/github'
 import {
   getAssigneesUserInfo,
   getAssigneesNodeIdFromUserInfo,
-  getGitHubToken,
-  getOctokit
+  getGitHubToken
 } from '../libs'
 import {addAssigneesToAssignable as addAssignees} from '../mutations/addAssigneesToAssignable.graphql'
 import {prettyStringify} from '../utils'
